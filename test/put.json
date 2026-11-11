@@ -1,6 +1,5 @@
 {
   "method": "PUT",
-
   "defaultTests": {
     "authentication": true,
     "securityMisconfiguration": true,
@@ -8,52 +7,28 @@
     "exceptionHandling": true,
     "logging": true
   },
-
   "endpoints": [
     {
-      "path": "/your/first/put/endpoint",
-      "description": "First custom PUT endpoint",
-      "authMode": "protected"
-    },
-    {
-      "path": "/your/second/put/endpoint",
-      "description": "Second custom PUT endpoint",
-      "authMode": "protected"
+      "path": "/api/items/:id",
+      "description": "Update an existing item",
+      "authMode": "public"
     }
   ],
-
   "accessControl": {
-    "enabled": true,
+    "enabled": false,
     "authorizedTokenEnv": "VIBESHIELD_ADMIN_TOKEN",
     "unauthorizedTokenEnv": "VIBESHIELD_USER_TOKEN",
-
-    "endpoints": [
-      {
-        "path": "/your/protected/put/endpoint",
-        "expectedAuthorizedStatus": [200, 204],
-        "expectedUnauthorizedStatus": [401, 403]
-      }
-    ]
+    "endpoints": []
   },
-
   "cryptographicHashing": {
-    "enabled": true,
-
+    "enabled": false,
     "checks": {
-      "passwordHashingAlgorithm": true,
-      "uniqueSaltPerPassword": true,
-      "passwordNotStoredInPlaintext": true,
-      "passwordHashNotReturnedInResponse": true,
-      "passwordNotExposedInLogs": true
+      "passwordHashingAlgorithm": false,
+      "uniqueSaltPerPassword": false,
+      "passwordNotStoredInPlaintext": false,
+      "passwordHashNotReturnedInResponse": false,
+      "passwordNotExposedInLogs": false
     },
-
-    "endpoints": [
-      {
-        "path": "/your/password-update/endpoint",
-        "description": "Update password and store its hash",
-        "operation": "password-update",
-        "expectedAlgorithm": "argon2id"
-      }
-    ]
+    "endpoints": []
   }
 }

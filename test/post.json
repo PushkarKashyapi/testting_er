@@ -1,6 +1,5 @@
 {
   "method": "POST",
-
   "defaultTests": {
     "authentication": true,
     "securityMisconfiguration": true,
@@ -8,58 +7,28 @@
     "exceptionHandling": true,
     "logging": true
   },
-
   "endpoints": [
     {
-      "path": "/your/first/post/endpoint",
-      "description": "First custom POST endpoint",
-      "authMode": "protected"
-    },
-    {
-      "path": "/your/second/post/endpoint",
-      "description": "Second custom POST endpoint",
+      "path": "/api/items",
+      "description": "Create a new item",
       "authMode": "public"
     }
   ],
-
   "accessControl": {
-    "enabled": true,
+    "enabled": false,
     "authorizedTokenEnv": "VIBESHIELD_ADMIN_TOKEN",
     "unauthorizedTokenEnv": "VIBESHIELD_USER_TOKEN",
-
-    "endpoints": [
-      {
-        "path": "/your/protected/post/endpoint",
-        "expectedAuthorizedStatus": [200, 201],
-        "expectedUnauthorizedStatus": [401, 403]
-      }
-    ]
+    "endpoints": []
   },
-
   "cryptographicHashing": {
-    "enabled": true,
-
+    "enabled": false,
     "checks": {
-      "passwordHashingAlgorithm": true,
-      "uniqueSaltPerPassword": true,
-      "passwordNotStoredInPlaintext": true,
-      "passwordHashNotReturnedInResponse": true,
-      "passwordNotExposedInLogs": true
+      "passwordHashingAlgorithm": false,
+      "uniqueSaltPerPassword": false,
+      "passwordNotStoredInPlaintext": false,
+      "passwordHashNotReturnedInResponse": false,
+      "passwordNotExposedInLogs": false
     },
-
-    "endpoints": [
-      {
-        "path": "/your/password-generation/endpoint",
-        "description": "Generate or store a new password hash",
-        "operation": "password-generation",
-        "expectedAlgorithm": "argon2id"
-      },
-      {
-        "path": "/your/password-update/endpoint",
-        "description": "Update password and store its hash",
-        "operation": "password-update",
-        "expectedAlgorithm": "bcrypt"
-      }
-    ]
+    "endpoints": []
   }
 }
