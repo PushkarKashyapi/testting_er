@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vibeshield
+  labels:
+    app: vibeshield
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: vibeshield
+
+  template:
+    metadata:
+      labels:
+        app: vibeshield
+
+    spec:
+      # Pod-level security settings
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
+        - name: vibeshield
+          image: "${IMAGE_NAME}:${IMAGE_TAG}"
+          imagePullPolicy: IfNotPresent
+
+          # Container-level security settings
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+
+          # Writable temporary storage
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+      volumes:
+        - name: tmp
+          emptyDir: {}

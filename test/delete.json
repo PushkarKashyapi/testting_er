@@ -1,0 +1,43 @@
+{
+  "method": "DELETE",
+
+  "defaultTests": {
+    "authentication": true,
+    "securityMisconfiguration": true,
+    "injection": true,
+    "exceptionHandling": true
+  },
+
+  "endpoints": [
+    {
+      "path": "/your/first/delete/endpoint",
+      "description": "First custom DELETE endpoint",
+      "authMode": "protected"
+    },
+    {
+      "path": "/your/second/delete/endpoint",
+      "description": "Second custom DELETE endpoint",
+      "authMode": "protected"
+    }
+  ],
+
+  "accessControl": {
+    "enabled": true,
+
+    "authorizedTokenEnv": "VIBESHIELD_ADMIN_TOKEN",
+    "unauthorizedTokenEnv": "VIBESHIELD_USER_TOKEN",
+
+    "endpoints": [
+      {
+        "path": "/your/protected/delete/endpoint",
+        "expectedAuthorizedStatus": [200, 204],
+        "expectedUnauthorizedStatus": [401, 403]
+      },
+      {
+        "path": "/your/another/protected/delete/endpoint",
+        "expectedAuthorizedStatus": [200, 204],
+        "expectedUnauthorizedStatus": [401, 403]
+      }
+    ]
+  }
+}

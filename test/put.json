@@ -1,0 +1,59 @@
+{
+  "method": "PUT",
+
+  "defaultTests": {
+    "authentication": true,
+    "securityMisconfiguration": true,
+    "injection": true,
+    "exceptionHandling": true,
+    "logging": true
+  },
+
+  "endpoints": [
+    {
+      "path": "/your/first/put/endpoint",
+      "description": "First custom PUT endpoint",
+      "authMode": "protected"
+    },
+    {
+      "path": "/your/second/put/endpoint",
+      "description": "Second custom PUT endpoint",
+      "authMode": "protected"
+    }
+  ],
+
+  "accessControl": {
+    "enabled": true,
+    "authorizedTokenEnv": "VIBESHIELD_ADMIN_TOKEN",
+    "unauthorizedTokenEnv": "VIBESHIELD_USER_TOKEN",
+
+    "endpoints": [
+      {
+        "path": "/your/protected/put/endpoint",
+        "expectedAuthorizedStatus": [200, 204],
+        "expectedUnauthorizedStatus": [401, 403]
+      }
+    ]
+  },
+
+  "cryptographicHashing": {
+    "enabled": true,
+
+    "checks": {
+      "passwordHashingAlgorithm": true,
+      "uniqueSaltPerPassword": true,
+      "passwordNotStoredInPlaintext": true,
+      "passwordHashNotReturnedInResponse": true,
+      "passwordNotExposedInLogs": true
+    },
+
+    "endpoints": [
+      {
+        "path": "/your/password-update/endpoint",
+        "description": "Update password and store its hash",
+        "operation": "password-update",
+        "expectedAlgorithm": "argon2id"
+      }
+    ]
+  }
+}

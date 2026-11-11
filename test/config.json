@@ -1,0 +1,30 @@
+{
+  "targetUrl": "http://127.0.0.1:3000",
+  "timeoutMs": 8000,
+  "reportPath": "vibeshield-report.json",
+
+  "endpointConfigs": {
+    "GET": "test/get.json",
+    "POST": "test/post.json",
+    "PUT": "test/put.json",
+    "DELETE": "test/delete.json"
+  },
+
+  "security": {
+    "failOnFindings": true,
+    "followRedirects": false,
+    "allowDestructiveTests": false
+  },
+
+  "authentication": {
+    "adminTokenEnv": "VIBESHIELD_ADMIN_TOKEN",
+    "userTokenEnv": "VIBESHIELD_USER_TOKEN"
+  },
+
+  "report": {
+    "format": "json",
+    "includePassedTests": true,
+    "includeWarnings": true,
+    "includeNotTested": true
+  }
+}
